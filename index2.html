@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Isa Rizado</title>
+<link rel="icon" type="image/png" href="images/favicon.png">
+<link rel="preload" as="image" href="images/intro-d.jpg" media="(min-width:769px)">
+<link rel="preload" as="image" href="images/intro-m.jpg" media="(max-width:768px)">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#F0EBE3;--bg2:#E8E2D9;
+  --tinto:#5C2A1E;--tinto-mid:#8B4A38;--tinto-lt:#B07060;
+  --border:rgba(92,42,30,0.13);--nav-h:72px;
+}
+html{scroll-behavior:smooth;overflow-x:clip}
+body{background:var(--bg);color:var(--tinto);font-family:'DM Sans',sans-serif;font-weight:300;-webkit-font-smoothing:antialiased;overflow-x:clip}
+
+/* ═══ NAV ═══ */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;height:var(--nav-h);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 40px;background:var(--bg2);
+  border-bottom:0.5px solid var(--border);
+  transition:background 0.5s,border-color 0.5s;
+}
+nav.over-hero{background:transparent;border-bottom-color:transparent}
+.nav-logo{
+  position:absolute;left:40px;top:-6px;
+  height:calc(var(--nav-h)*1.85);cursor:pointer;display:flex;align-items:flex-start;
+  z-index:10;
+}
+.nav-logo img{
+  height:100%;width:auto;max-width:330px;object-fit:contain;
+  transition:opacity 0.5s;
+}
+nav.over-hero .nav-logo img{opacity:0}
+.nav-logo-text{display:none;font-size:12px;letter-spacing:0.26em;text-transform:uppercase;color:var(--tinto);font-weight:400}
+.nav-center{display:flex;gap:40px;position:absolute;left:50%;transform:translateX(-50%)}
+.nav-center a{
+  font-size:11px;letter-spacing:0.22em;text-transform:uppercase;
+  color:var(--tinto);text-decoration:none;transition:color 0.3s,border-color 0.3s;cursor:pointer;
+  padding-bottom:4px;border-bottom:1px solid transparent;font-weight:500;
+}
+.nav-center a.current{border-bottom-color:var(--tinto)}
+nav.over-hero .nav-center a{color:rgba(255,255,255,0.95);border-bottom-color:transparent;text-shadow:0 1px 6px rgba(30,15,8,0.55)}
+.nav-center a:hover{color:var(--tinto-mid)}
+nav.over-hero .nav-center a:hover{color:#fff}
+.nav-lang{display:flex;gap:8px;align-items:center;margin-left:auto}
+.lang-btn{font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--tinto-lt);background:none;border:none;cursor:pointer;transition:color 0.3s;font-family:'DM Sans',sans-serif}
+.lang-btn.active{color:var(--tinto);font-weight:400}
+nav.over-hero .lang-btn{color:rgba(255,255,255,0.7);text-shadow:0 1px 6px rgba(30,15,8,0.5)}
+nav.over-hero .lang-btn.active{color:#fff;text-shadow:0 1px 6px rgba(30,15,8,0.5)}
+.lang-sep{color:var(--tinto-lt);font-size:10px;opacity:0.35}
+nav.over-hero .lang-sep{color:rgba(255,255,255,0.3)}
+
+/* ═══ PAGES ═══ */
+.page{display:none}
+.page.active{display:block}
+.page-inner{padding:calc(var(--nav-h) + 64px) 40px 96px;max-width:1160px;margin:0 auto}
+
+/* ═══ HOME ═══ */
+.hero{position:relative;width:100%;height:100vh;min-height:600px;line-height:0;overflow:hidden}
+.hero > img{width:100%;height:100%;object-fit:cover;display:block}
+.hero > img.hero-img-m{display:none}
+.scroll-cue{
+  position:absolute;bottom:36px;left:50%;transform:translateX(-50%);
+  z-index:5;pointer-events:none;transition:opacity 0.6s;
+}
+.scroll-cue path{
+  stroke-dasharray:80;stroke-dashoffset:80;
+  animation:draw 2.6s ease-in-out infinite;
+}
+@media(min-width:1600px){
+  .below-hero{max-width:1520px;padding:88px 80px 104px}
+  .tagline-text{font-size:25px;max-width:560px}
+  .below-hero-left{padding-top:24%}
+  .cta-link{padding:17px 52px;font-size:11px}
+}
+@media(max-width:768px){.scroll-cue{display:none}}
+@keyframes draw{
+  0%{stroke-dashoffset:80;opacity:0}
+  25%{opacity:1}
+  60%{stroke-dashoffset:0;opacity:1}
+  100%{stroke-dashoffset:0;opacity:0}
+}
+.scroll-cue.hidden{opacity:0}
+.hero-logo-overlay{
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  pointer-events:none;
+}
+.hero-logo-img{
+  width:clamp(260px,42vw,600px);height:auto;
+  filter:brightness(0) invert(1) drop-shadow(0 2px 14px rgba(40,20,10,0.3));
+  opacity:0.96;
+}
+.hero-logo-fallback{
+  font-size:clamp(28px,5vw,52px);letter-spacing:0.36em;text-transform:uppercase;
+  color:rgba(255,255,255,0.95);font-weight:300;line-height:1;
+}
+
+.below-hero{
+  display:grid;grid-template-columns:1.15fr 1fr;gap:64px;
+  padding:56px 64px 88px;align-items:start;
+  border-bottom:0.5px solid var(--border);
+  max-width:1240px;margin:0 auto;
+}
+.below-hero-left{display:flex;flex-direction:column;justify-content:flex-start;align-items:center;text-align:center;padding-top:30%}
+.tagline-text{
+  font-family:'Playfair Display',serif;font-size:clamp(17px,1.9vw,22px);
+  color:var(--tinto);line-height:1.6;font-weight:400;max-width:460px;margin-bottom:44px;
+}
+.cta-link{
+  font-size:10px;letter-spacing:0.24em;text-transform:uppercase;color:var(--tinto);
+  text-decoration:none;border:0.5px solid var(--tinto);padding:15px 44px;
+  transition:background 0.3s,color 0.3s;cursor:pointer;
+}
+.cta-link:hover{background:var(--tinto);color:var(--bg)}
+.below-hero-right img{width:100%;height:auto;display:block;border-radius:1px}
+.below-hero{position:relative}
+.cut-amarelos{
+  position:absolute;left:40px;bottom:-7%;
+  width:56%;height:auto;z-index:3;
+  filter:brightness(0.9) saturate(1.05);
+  pointer-events:none;
+}
+@keyframes drift{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-12px) rotate(-2.5deg)}}
+@keyframes drift2{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-9px) rotate(2deg)}}
+
+.cut-copo{position:absolute;right:250px;bottom:-4px;height:90px;width:auto;animation:drift 7s ease-in-out infinite;z-index:2}
+.cv-block{position:relative}
+.cut-varandas{position:absolute;right:0;top:110px;height:215px;width:auto;animation:drift2 9s ease-in-out infinite;z-index:2}
+.contact-grid{position:relative;overflow:hidden}
+.cut-planta-m{display:none}
+.cut-planta{position:absolute;right:4%;bottom:0;height:36vh;width:auto;mix-blend-mode:multiply;pointer-events:none;z-index:1}
+
+/* ═══ WORK — estilo Jay Miriam: fotos reais, formato natural ═══ */
+.section-label{font-size:10px;letter-spacing:0.26em;text-transform:uppercase;color:var(--tinto-lt);margin-bottom:48px}
+.works-masonry{display:grid;grid-template-columns:1fr 1fr;gap:72px 96px;align-items:start;margin-bottom:72px;max-width:980px;margin-left:auto;margin-right:auto}
+.work-full{margin:0 auto 72px;cursor:pointer;max-width:980px}
+.work-full img{width:100%;height:auto;display:block}
+.wm img{mix-blend-mode:multiply}
+.wb img{border:1px solid rgba(92,42,30,0.22)}
+.work-item{cursor:pointer}
+.work-item img{width:100%;height:auto;display:block}
+.work-info{margin-top:12px}
+.work-title{font-family:'Playfair Display',serif;font-size:15.5px;color:var(--tinto);font-weight:400}
+.work-meta{font-size:12px;color:var(--tinto-mid);margin-top:4px;letter-spacing:0.06em;font-weight:400}
+.work-sold{display:inline-block;font-size:8.5px;color:var(--tinto);background:rgba(176,112,96,0.28);margin-top:7px;padding:3px 8px;letter-spacing:0.16em;text-transform:uppercase;border-radius:1px}
+
+/* ═══ ABOUT ═══ */
+.about-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:72px;align-items:start}
+.about-photo-col{position:sticky;top:calc(var(--nav-h) + 40px)}
+.about-photo-col img{width:100%;display:block;border-radius:1px}
+.about-name{font-family:'Playfair Display',serif;font-size:clamp(24px,2.6vw,32px);color:var(--tinto);font-weight:400;margin-bottom:32px;line-height:1.2}
+.about-lead{
+  font-family:'Playfair Display',serif;font-size:16.5px;color:var(--tinto);
+  line-height:1.75;margin-bottom:26px;font-weight:400;
+}
+.about-bio{font-size:15px;font-weight:400;color:var(--tinto-mid);line-height:1.9;text-align:justify}
+.about-bio p+p{margin-top:18px}
+.about-strip{display:flex;gap:20px;margin:88px 0;align-items:flex-start}
+.about-strip .sp{border-radius:1px;flex:0 0 auto}
+.about-strip .sp img{display:block;width:auto}
+.sp-cap{font-size:9.5px;letter-spacing:0.14em;text-transform:uppercase;color:var(--tinto-lt);margin-top:10px}
+.cv-block{padding-top:24px}
+.cv-title{font-family:'Playfair Display',serif;font-size:21px;color:var(--tinto);margin-bottom:40px;font-weight:400}
+.cv-row{display:grid;grid-template-columns:110px 1fr;gap:24px;padding:15px 0;border-bottom:0.5px solid var(--border)}
+.cv-year{font-size:11px;color:var(--tinto-lt);letter-spacing:0.1em}
+.cv-entry{font-size:13.5px;font-weight:400;color:var(--tinto-mid);line-height:1.65}
+.cv-entry strong{color:var(--tinto);font-weight:400}
+
+/* ═══ CONTACT — enquadrado no viewport, sem scroll ═══ */
+#page-contact.active{display:flex;flex-direction:column;min-height:100vh}
+.contact-grid{
+  display:grid;grid-template-columns:auto 1fr;
+  padding-top:var(--nav-h);
+  height:100vh;
+}
+.contact-photo{overflow:hidden}
+.contact-photo img:not(.cut-planta-m){height:100%;width:auto;aspect-ratio:1/1.18;max-width:52vw;object-fit:cover;object-position:center 88%;display:block}
+.contact-content{
+  display:flex;flex-direction:column;justify-content:center;
+  padding:48px 8%;
+}
+.contact-label{font-size:10px;letter-spacing:0.26em;text-transform:uppercase;color:var(--tinto-lt);margin-bottom:36px}
+.contact-intro{font-family:'Playfair Display',serif;font-size:clamp(19px,2vw,24px);color:var(--tinto);line-height:1.5;margin-bottom:44px;font-weight:400;max-width:360px}
+.contact-links{display:flex;flex-direction:column;gap:22px;max-width:320px}
+.contact-link{
+  font-size:13px;color:var(--tinto-mid);text-decoration:none;letter-spacing:0.06em;
+  transition:color 0.3s;border-bottom:0.5px solid var(--border);padding-bottom:14px;
+}
+.contact-link:hover{color:var(--tinto)}
+.contact-note{margin-top:40px;font-size:11.5px;color:var(--tinto-lt);letter-spacing:0.04em;max-width:320px;line-height:1.7}
+.contact-link span{display:block;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--tinto-lt);margin-bottom:6px}
+
+/* ═══ FOOTER ═══ */
+footer{padding:20px 40px;border-top:0.5px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.footer-copy{font-size:9px;color:var(--tinto-lt);letter-spacing:0.1em}
+.footer-insta{color:var(--tinto-lt);text-decoration:none;transition:color 0.3s;display:flex;align-items:center}
+.footer-insta:hover{color:var(--tinto)}
+
+/* ═══ LIGHTBOX ═══ */
+.lightbox{display:none;position:fixed;inset:0;z-index:200;background:rgba(20,8,4,0.95);align-items:center;justify-content:center}
+.lightbox.open{display:flex}
+.lightbox-inner{position:relative;max-width:88vw;max-height:88vh;display:flex;align-items:center;gap:32px}
+.lightbox-img{max-width:70vw;max-height:82vh;object-fit:contain;transition:transform 0.35s ease}
+@media(hover:hover) and (min-width:769px){
+  .lightbox-img.zoomable{cursor:zoom-in}
+  .lightbox-img.zoomed{cursor:zoom-out;transform:scale(1.9)}
+}
+.lightbox-info{min-width:160px;max-width:200px}
+.lb-title{font-family:'Playfair Display',serif;font-size:19px;color:rgba(240,235,227,0.95);font-weight:400;line-height:1.3;margin-bottom:10px}
+.lb-meta{font-size:11px;color:rgba(176,112,96,0.8);line-height:1.8;letter-spacing:0.05em}
+.lb-enquire{display:inline-block;margin-top:16px;font-size:9.5px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(240,235,227,0.85);text-decoration:none;border-bottom:1px solid rgba(240,235,227,0.35);padding-bottom:3px;transition:color 0.3s,border-color 0.3s}
+.lb-enquire:hover{color:#fff;border-color:#fff}
+.lb-sold{display:inline-block;font-size:9px;color:var(--tinto);background:rgba(240,235,227,0.92);letter-spacing:0.16em;text-transform:uppercase;margin-top:12px;padding:3px 9px;border-radius:1px}
+.lb-close{position:absolute;top:-36px;right:0;background:none;border:none;color:rgba(255,255,255,0.4);font-size:24px;cursor:pointer;font-weight:300;transition:color 0.3s}
+.lb-close:hover{color:rgba(255,255,255,0.9)}
+.lb-nav{background:none;border:none;color:rgba(255,255,255,0.22);font-size:32px;cursor:pointer;padding:12px;transition:color 0.3s;font-weight:300;flex-shrink:0}
+.lb-nav:hover{color:rgba(255,255,255,0.8)}
+
+/* ═══ MOBILE ═══ */
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
+.hamburger span{display:block;width:22px;height:1px;background:var(--tinto);transition:background 0.4s}
+nav.over-hero .hamburger span{background:rgba(255,255,255,0.95);box-shadow:0 1px 4px rgba(30,15,8,0.5)}
+.mobile-menu{display:none;position:fixed;inset:0;z-index:150;background:var(--bg);flex-direction:column;align-items:center;justify-content:center;gap:36px}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-family:'Playfair Display',serif;font-size:30px;color:var(--tinto);text-decoration:none;cursor:pointer}
+.mobile-menu-lang{display:flex;gap:16px;margin-top:12px}
+.mobile-menu-close{position:absolute;top:22px;right:26px;background:none;border:none;font-size:26px;color:var(--tinto-lt);cursor:pointer;font-weight:300}
+.menu-varandas{position:absolute;bottom:24px;right:18px;height:120px;width:auto;pointer-events:none;animation:drift2 9s ease-in-out infinite}
+@media(max-height:560px){.menu-varandas{display:none}}
+
+@media(max-width:900px){
+  .contact-grid{display:flex;flex-direction:column;height:auto;min-height:unset;padding-top:var(--nav-h)}
+  .contact-content{order:1;padding:40px 24px 0}
+  .contact-note{margin-top:28px;max-width:100%}
+  .contact-photo{order:2;max-height:none;position:relative;margin-top:250px;overflow:visible;display:block;width:100%}
+  .contact-photo img:not(.cut-planta-m){width:100%;max-width:100%;height:auto;aspect-ratio:1/1.12;object-fit:cover;object-position:center 83%;position:relative;z-index:3;display:block}
+  .cut-planta-m{display:block!important;position:absolute;right:7%;top:-215px;height:255px!important;width:auto!important;z-index:1;pointer-events:none}
+  .cut-planta{display:none}
+  #page-contact.active{min-height:unset}
+}
+@media(max-width:768px){
+  nav{padding:0 20px}
+  .nav-center,.nav-lang{display:none}
+  .hamburger{display:flex}
+  .nav-logo{left:16px;top:50%;transform:translateY(-50%);height:calc(var(--nav-h)*0.82);align-items:center}
+  .nav-logo img{max-width:170px}
+  .hero > img.hero-img-d{display:none}
+  .hero{height:auto;min-height:0}
+  .hero > img.hero-img-m{display:block;width:100%;height:auto;aspect-ratio:1/1;object-fit:cover}
+  .hero-logo-img{width:clamp(180px,60vw,320px);filter:brightness(0) invert(1) drop-shadow(0 2px 10px rgba(40,20,10,0.5))}
+  .hamburger{position:relative;z-index:103;margin-left:auto}
+  .page-inner{padding:calc(var(--nav-h) + 40px) 20px 64px}
+  .below-hero{grid-template-columns:1fr;gap:24px;padding:24px 24px 72px;margin-bottom:88px;border-bottom:none}
+  .below-hero-left{padding-top:0}
+  .cut-amarelos{left:-5%;width:108%;bottom:-9%}
+  .cut-varandas{display:none}
+  .cut-copo{right:16px;bottom:-36px;height:68px}
+  .cv-block{padding-bottom:96px}
+  .cut-planta{height:22vh;right:2%}
+  .works-masonry{grid-template-columns:1fr;gap:40px;max-width:100%}
+  .work-full{max-width:100%}
+  .work-item{margin-bottom:48px}
+  .about-grid{grid-template-columns:1fr;gap:40px}
+  .about-photo-col{position:static;max-width:100%}
+  .about-bio,.about-lead{text-align:left}
+  .about-strip{flex-direction:column;margin:56px 0}
+  .about-strip .sp img{width:100%!important;height:auto!important}
+  .cv-row{grid-template-columns:80px 1fr;gap:16px}
+  footer{padding:18px 20px;flex-direction:column;gap:8px;text-align:center}
+  .lightbox-inner{flex-direction:column;max-width:95vw;gap:16px}
+  .lb-nav{position:fixed;top:50%;transform:translateY(-50%);z-index:220;font-size:36px;color:rgba(255,255,255,0.7);padding:10px;background:none}
+  #lb-prev{left:2px}
+  #lb-next{right:2px}
+  .lightbox-img{max-width:92vw;max-height:58vh}
+  .lightbox-info{min-width:unset;text-align:center}
+  .lb-close{top:-30px}
+}
+/* ═══ INTRO ═══ */
+.intro{position:fixed;inset:0;z-index:500;overflow:hidden;background:#C4B09A;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:opacity 0.7s ease}
+.intro.done{opacity:0;pointer-events:none}
+.intro-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 0.5s ease}
+.intro.ready .intro-bg{opacity:1}
+.intro-bg.m{display:none}
+.intro-logo{position:relative;z-index:2;width:clamp(280px,46vw,640px)}
+.intro-logo svg{width:100%;height:auto;display:block;filter:brightness(0) invert(1) drop-shadow(0 2px 14px rgba(40,20,10,0.35))}
+.intro-logo svg.il-stack{display:none}
+.paint-path{fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1}
+.intro.ready .paint-path{animation-name:paintStroke;animation-timing-function:ease-in-out;animation-fill-mode:forwards}
+@keyframes paintStroke{to{stroke-dashoffset:0}}
+.work-tagline{font-family:'Playfair Display',serif;font-size:clamp(13.5px,1.55vw,19px);color:var(--tinto);line-height:1.6;white-space:nowrap;margin:-18px 0 60px;font-weight:400}
+.cut-amarelos-2{position:relative;z-index:2;display:block;width:min(740px,60vw);height:auto;margin:130px 0 -72px calc(50% - 50vw - 3vw);filter:brightness(0.9) saturate(1.05);pointer-events:none}
+@media(max-width:768px){
+  .intro-bg.d{display:none}
+  .intro-bg.m{display:block}
+  .intro-logo{width:min(74vw,360px)}
+  .intro-logo svg.il-line{display:none}
+  .intro-logo svg.il-stack{display:block}
+  .work-tagline{white-space:normal;max-width:100%;margin:-8px 0 44px}
+  .cut-amarelos-2{width:104vw;margin:80px 0 -34px calc(50% - 54vw)}
+}
+@media(prefers-reduced-motion:reduce){
+  .hero-logo-img{transition:none}
+  .intro-bg{opacity:1}
+  .paint-path{animation:none!important;stroke-dashoffset:0!important}
+}
+</style>
+</head>
+<body>
+
+<div class="intro" id="intro">
+  <img class="intro-bg d" src="images/intro-d.jpg" alt="">
+  <img class="intro-bg m" src="images/intro-m.jpg" alt="">
+  <div class="intro-logo">
+    <svg class="il-line" viewBox="0 0 2000 336" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" role="img" aria-label="Isa Rizado"><defs><mask id="mLine" maskUnits="userSpaceOnUse"><path class="paint-path" d="M99 54 L41 284 L159 54 L162 284" stroke-width="160" pathLength="1" style="animation-duration:0.21s;animation-delay:0.50s"/><path class="paint-path" d="M307 54 L250 284" stroke-width="160" pathLength="1" style="animation-duration:0.13s;animation-delay:0.75s"/><path class="paint-path" d="M395 54 L337 284 L456 54 L460 284" stroke-width="160" pathLength="1" style="animation-duration:0.21s;animation-delay:0.92s"/><path class="paint-path" d="M765 50 L710 269 L840 50 L860 269" stroke-width="152" pathLength="1" style="animation-duration:0.21s;animation-delay:1.47s"/><path class="paint-path" d="M1007 50 L952 269" stroke-width="152" pathLength="1" style="animation-duration:0.13s;animation-delay:1.72s"/><path class="paint-path" d="M1099 50 L1044 269 L1153 50 L1152 269" stroke-width="152" pathLength="1" style="animation-duration:0.21s;animation-delay:1.89s"/><path class="paint-path" d="M1298 50 L1243 269 L1357 50 L1362 269 L1476 50" stroke-width="152" pathLength="1" style="animation-duration:0.25s;animation-delay:2.14s"/><path class="paint-path" d="M1567 50 L1512 269 L1637 50 L1652 269" stroke-width="152" pathLength="1" style="animation-duration:0.21s;animation-delay:2.43s"/><path class="paint-path" d="M1798 50 L1743 269 L1857 50 L1861 269 L1975 50" stroke-width="152" pathLength="1" style="animation-duration:0.25s;animation-delay:2.68s"/></mask></defs><image href="images/logo.png" xlink:href="images/logo.png" width="2000" height="336" mask="url(#mLine)"/></svg>
+    <svg class="il-stack" viewBox="0 0 1000 530" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" role="img" aria-label="Isa Rizado"><defs><mask id="mStack" maskUnits="userSpaceOnUse"><path class="paint-path" d="M365 40 L322 211 L410 40 L412 211" stroke-width="118" pathLength="1" style="animation-duration:0.22s;animation-delay:0.45s"/><path class="paint-path" d="M520 40 L478 211" stroke-width="118" pathLength="1" style="animation-duration:0.14s;animation-delay:0.71s"/><path class="paint-path" d="M586 40 L543 211 L632 40 L635 211" stroke-width="118" pathLength="1" style="animation-duration:0.22s;animation-delay:0.89s"/><path class="paint-path" d="M69 318 L28 480 L124 318 L139 480" stroke-width="112" pathLength="1" style="animation-duration:0.22s;animation-delay:1.55s"/><path class="paint-path" d="M248 318 L208 480" stroke-width="112" pathLength="1" style="animation-duration:0.14s;animation-delay:1.82s"/><path class="paint-path" d="M317 318 L276 480 L358 318 L359 480" stroke-width="112" pathLength="1" style="animation-duration:0.22s;animation-delay:1.99s"/><path class="paint-path" d="M467 318 L426 480 L510 318 L514 480 L598 318" stroke-width="112" pathLength="1" style="animation-duration:0.26s;animation-delay:2.26s"/><path class="paint-path" d="M665 318 L624 480 L718 318 L731 480" stroke-width="112" pathLength="1" style="animation-duration:0.22s;animation-delay:2.56s"/><path class="paint-path" d="M839 318 L798 480 L883 318 L886 480 L970 318" stroke-width="112" pathLength="1" style="animation-duration:0.26s;animation-delay:2.82s"/></mask></defs><image href="images/logo-stacked.png" xlink:href="images/logo-stacked.png" width="1000" height="530" mask="url(#mStack)"/></svg>
+  </div>
+</div>
+
+<nav id="nav">
+  <div class="nav-logo" onclick="goTo('work')">
+    <img src="images/logo.png" alt="Isa Rizado"
+         onerror="this.style.display='none';this.parentElement.querySelector('.nav-logo-text').style.display='block'">
+    <span class="nav-logo-text">Isa Rizado</span>
+  </div>
+  <div class="nav-center">
+    <a data-page="work" class="current" data-i18n="nav-work" onclick="goTo('work')">Work</a>
+    <a data-page="about" data-i18n="nav-about" onclick="goTo('about')">About</a>
+    <a data-page="contact" data-i18n="nav-contact" onclick="goTo('contact')">Contact</a>
+  </div>
+  <div class="nav-lang">
+    <button class="lang-btn active" data-lang="en">EN</button>
+    <span class="lang-sep">/</span>
+    <button class="lang-btn" data-lang="es">ES</button>
+  </div>
+  <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <button class="mobile-menu-close" id="mobile-close">×</button>
+  <a data-i18n="nav-work" onclick="goTo('work')">Work</a>
+  <a data-i18n="nav-about" onclick="goTo('about')">About</a>
+  <a data-i18n="nav-contact" onclick="goTo('contact')">Contact</a>
+  <div class="mobile-menu-lang">
+    <button class="lang-btn active" data-lang="en">EN</button>
+    <button class="lang-btn" data-lang="es">ES</button>
+  </div>
+  <img class="menu-varandas" src="images/cut-varandas.png" alt="" onerror="this.remove()">
+</div>
+
+<!-- ═══ WORK ═══ -->
+<div class="page active" id="page-work">
+  <div class="page-inner">
+    <div class="section-label" data-i18n="nav-work">Work</div>
+    <p class="work-tagline" data-i18n="tagline">In-between painting and architecture, what is still to be made.</p>
+    <div id="works-grid"></div>
+    <img class="cut-amarelos-2" src="images/cut-amarelos.png" alt="" onerror="this.remove()">
+  </div>
+</div>
+
+<!-- ═══ ABOUT ═══ -->
+<div class="page" id="page-about">
+  <div class="page-inner">
+    <div class="section-label" data-i18n="nav-about">About</div>
+    <div class="about-grid">
+      <div class="about-photo-col">
+        <img src="images/about-portrait.jpg" alt="Isa Rizado">
+      </div>
+      <div>
+        <p class="about-lead" data-i18n="about-lead">Isabel Carneiro (Porto, 1998) lives and works in Barcelona. She brings an architect's eye to painting, not as subject matter, but as a way of seeing.</p>
+        <div class="about-bio" id="about-bio"></div>
+      </div>
+    </div>
+
+    <div class="about-strip">
+      <div class="sp sp-v"><img src="images/live-painting-el-born.jpg" alt="Live painting, El Born" onerror="this.parentElement.style.display='none'"><div class="sp-cap" data-i18n="cap1">Live painting at Fet al Born, Barcelona</div></div>
+      <div class="sp sp-v"><img src="images/palo-market.jpg" alt="Palo Market Fest" onerror="this.parentElement.style.display='none'"><div class="sp-cap" data-i18n="cap2">Palo Market Fest, Barcelona</div></div>
+      <div class="sp sp-h"><img src="images/expo-restaurant.jpg" alt="Exhibition at Anje" onerror="this.parentElement.style.display='none'"><div class="sp-cap" data-i18n="cap3">Exhibition at Anje, Oporto</div></div>
+    </div>
+
+    <div class="cv-block">
+      <img class="cut-copo" src="images/cut-copo.png" alt="" onerror="this.remove()">
+      <img class="cut-varandas" src="images/cut-varandas.png" alt="" onerror="this.remove()">
+      <div class="cv-title">CV</div>
+            <div class="cv-row"><div class="cv-year">2024 &ndash; 2025</div><div class="cv-entry" data-i18n="cv1"><strong>Art markets</strong>: Palo Market Fest, Port Vell Market and La Pala Brava Market, Barcelona and Costa Brava, Spain</div></div>
+      <div class="cv-row"><div class="cv-year">2024 &ndash; 2025</div><div class="cv-entry" data-i18n="cv2"><strong>Work available at</strong> Paam Project and Ona Nova Concept Store, Barcelona, Spain</div></div>
+      <div class="cv-row"><div class="cv-year">2023</div><div class="cv-entry" data-i18n="cv3"><strong>Exhibition at Anje Restaurant</strong>, Oporto, Portugal</div></div>
+      <div class="cv-row"><div class="cv-year" data-i18n="cvy4">2021 &ndash; present</div><div class="cv-entry" data-i18n="cv4"><strong>Practising architect</strong>, Barcelona, Spain</div></div>
+      <div class="cv-row"><div class="cv-year">2016 &ndash; 2022</div><div class="cv-entry" data-i18n="cv5"><strong>Master Degree in Architecture</strong>, FAUP, Faculdade de Arquitetura da Universidade do Porto</div></div>
+      <div class="cv-row"><div class="cv-year">2008 &ndash; 2016</div><div class="cv-entry" data-i18n="cv6"><strong>Oil painting classes</strong>, Portugal</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CONTACT ═══ -->
+<div class="page" id="page-contact">
+  <div class="contact-grid">
+    <div class="contact-photo">
+      <img class="cut-planta-m" src="images/cut-planta.png" alt="" onerror="this.remove()">
+      <img src="images/contact-balcony.jpg" alt="Isa Rizado"
+           onerror="this.parentElement.style.display='none'">
+    </div>
+    <div class="contact-content">
+      <div class="contact-label" data-i18n="nav-contact">Contact</div>
+      <p class="contact-intro" data-i18n="contact-intro">For inquiries about original works, commissions or exhibitions.</p>
+      <div class="contact-links">
+        <a href="mailto:isarizado.art@gmail.com" class="contact-link">
+          <span data-i18n="lbl-email">Email</span>
+          isarizado.art@gmail.com
+        </a>
+        <a href="https://www.instagram.com/isarizado.art/" class="contact-link" target="_blank" rel="noopener">
+          <span>Instagram</span>
+          @isarizado.art
+        </a>
+      </div>
+      <p class="contact-note" data-i18n="prints-note">Prints of selected works are available on request, subject to stock.</p>
+    </div>
+    <img class="cut-planta" src="images/cut-planta.png" alt="" onerror="this.remove()">
+  </div>
+</div>
+
+<footer>
+  <span class="footer-copy">© 2026 Isa Rizado</span>
+  <a href="https://www.instagram.com/isarizado.art/" class="footer-insta" target="_blank" rel="noopener" aria-label="Instagram"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.8" cy="6.2" r="1" fill="currentColor" stroke="none"/></svg></a>
+</footer>
+
+<div class="lightbox" id="lightbox">
+  <button class="lb-nav" id="lb-prev">‹</button>
+  <div class="lightbox-inner">
+    <button class="lb-close" id="lb-close">×</button>
+    <img class="lightbox-img" id="lb-img" src="" alt="">
+    <div class="lightbox-info">
+      <div class="lb-title" id="lb-title"></div>
+      <div class="lb-meta" id="lb-meta"></div>
+      <div class="lb-sold" id="lb-sold"></div>
+      <a class="lb-enquire" id="lb-enquire" href="#" style="display:none">Enquire about this work</a>
+    </div>
+  </div>
+  <button class="lb-nav" id="lb-next">›</button>
+</div>
+
+<script>
+const IMG={
+ '1P56aPsd2SyJiXcUu-72-nfx7Dx0Nj83B':'mexicanas.jpg','1PIz3sQeYpww02L7QXXJZq0zwm4vp2_Id':'happy-hour.jpg',
+ '1cQnSQPm8n6iiLQjpGsQgFB4P83WELZFD':'golden-hour.jpg','1xAnQZasqs7fn4OmZc5TcT-slo3DEh4pG':'in-between.jpg',
+ '1Kli612_u2vNuInCJ2Yaa16xWDuknLFgq':'passersby.jpg','1G70HEk0h9QSEJ3RBTuCIN7x9qWjlJKKB':'rescue-kit.jpg',
+ '1IvktGc-zQjQqJ_Z58I0Jz2qg7hFdeudW':'above-5000-meters.jpg','1fOCeZpiK5DOzXeja8ZkRxUNgePCRdBJa':'thin-air.jpg',
+ '1SvR2Nhiofa2cKnIpjl438AIwdK4boBQR':'another-vermouth-please.jpg','17yX6A8Mn1ZJFUmYx7Vau1F7-WTvAC8cN':'another-vermouth-i-beg.jpg',
+ '1sSpK_KYvL_oj8JRQGiYe8iE1BxmSl_wm':'one-balcony-two-balconies.jpg','1xulxaYf7zBXAwEYDmKGce8wndjuZpEf7':'two-balconies-one-loaf.jpg',
+ '1h7G4CTwd5-TAoql0gQAmiEnaCxInfysv':'good-afternoon-freedom-beach.jpg','1dB6jZbMos94yqVx6aq1f-IUUVQYkcMSd':'great-afternoon-freedom-beach.jpg',
+ '1YPN9glH4QRTv84Y7s1OOpqDXQr_v5mR_':'arriving-to-paradise.jpg','1ezrHj_0ILAo29pcYYyZE2Kfvx91gWozx':'in-paradise-pink-tiles.jpg',
+ '1sXH7Z8DkVup_8iXd0AyLgmIWpDTkj7tB':'view-from-home.jpg','1l6FhRVsQQrPpyoFG1zaNvEqoUmTFI1EN':'holiday-view.jpg',
+ '161iFXrAOhcL6gtR92gU9vtNmntlOS685':'finestra-veneziana.jpg','1uArPzfuENPdHACqmISRu_EkkPirhoMJz':'orange-chill.jpg',
+ '1oPznrbw9t759TgH4QW91lAaiBuJmyE8Y':'wine-greenhouse-pair.jpg','1HOAQDJ6j42eQAzznyasigvzR34ksE5if':'rainbow-mountain.jpg',
+ '1uiOxDo2PAFloVSj9xpI2swpV-ULXGVKn':'nap-overlap.jpg','11qh4tFmr_JrcKOKvM537TozTdk7CysUv':'tasting-the-sea.jpg',
+ '1Nfmnr-dBJs1O5tXL-cLvgpwjaCSPplpo':'under-the-shade.jpg'
+};
+const D=(id,sz)=>'images/'+IMG[id];
+const works=[
+  {id:'1xAnQZasqs7fn4OmZc5TcT-slo3DEh4pG',title:'In-between',meta:'oil on canvas \u00b7 80 \u00d7 120 cm',sold:true,wide:true},
+  {id:'1PIz3sQeYpww02L7QXXJZq0zwm4vp2_Id',title:'Happy Hour',meta:'oil on canvas \u00b7 40 \u00d7 40 cm',sold:true},
+  {id:'1cQnSQPm8n6iiLQjpGsQgFB4P83WELZFD',title:'Golden Hour',meta:'oil on canvas \u00b7 40 \u00d7 40 cm',sold:true},
+  {id:'1P56aPsd2SyJiXcUu-72-nfx7Dx0Nj83B',title:'Untitled, new work',meta:'oil on canvas \u00b7 89 \u00d7 146 cm',sold:true,wide:true},
+  {id:'1Kli612_u2vNuInCJ2Yaa16xWDuknLFgq',title:'Passersby',meta:'oil on canvas \u00b7 40 \u00d7 50 cm',sold:true},
+  {id:'1G70HEk0h9QSEJ3RBTuCIN7x9qWjlJKKB',title:'Rescue Kit',meta:'oil on canvas \u00b7 40 \u00d7 40 cm',sold:false,border:true},
+  {id:'1IvktGc-zQjQqJ_Z58I0Jz2qg7hFdeudW',title:'Above 5000 meters',meta:'oil and acrylic on wood panel \u00b7 50 \u00d7 70 cm',sold:false},
+  {id:'1fOCeZpiK5DOzXeja8ZkRxUNgePCRdBJa',title:'Thin Air',meta:'oil and acrylic on wood panel \u00b7 50 \u00d7 70 cm',sold:false},
+  {id:'1HOAQDJ6j42eQAzznyasigvzR34ksE5if',title:'Rainbow Mountain',meta:'mixed media on archival Hahnem\u00fchle paper \u00b7 40 \u00d7 60 cm',sold:false},
+  {id:'1oPznrbw9t759TgH4QW91lAaiBuJmyE8Y',title:'Wine at the Greenhouse',meta:'mixed media on cotton rag paper \u00b7 10 \u00d7 15 cm, pair',sold:false,blend:true},
+  {id:'1SvR2Nhiofa2cKnIpjl438AIwdK4boBQR',title:'Another Vermouth, Please',meta:'acrylic on canvas \u00b7 15 \u00d7 15 cm',sold:false},
+  {id:'17yX6A8Mn1ZJFUmYx7Vau1F7-WTvAC8cN',title:'Another Vermouth, I Beg',meta:'mixed media on archival Hahnem\u00fchle paper \u00b7 30 \u00d7 30 cm',sold:false},
+  {id:'1sSpK_KYvL_oj8JRQGiYe8iE1BxmSl_wm',title:'One Balcony, Two Balconies',meta:'acrylic on canvas \u00b7 15 \u00d7 15 cm',sold:true},
+  {id:'1xulxaYf7zBXAwEYDmKGce8wndjuZpEf7',title:'Two Balconies, One Loaf of Bread',meta:'mixed media on archival Hahnem\u00fchle paper \u00b7 30 \u00d7 30 cm',sold:false},
+  {id:'1h7G4CTwd5-TAoql0gQAmiEnaCxInfysv',title:'The Good Afternoon at Freedom Beach, Koh Tao',meta:'acrylic on paper \u00b7 40 \u00d7 65 cm',sold:false},
+  {id:'1dB6jZbMos94yqVx6aq1f-IUUVQYkcMSd',title:'The Great Afternoon at Freedom Beach, Koh Tao',meta:'mixed media on archival Hahnem\u00fchle paper \u00b7 40 \u00d7 65 cm',sold:false},
+  {id:'1YPN9glH4QRTv84Y7s1OOpqDXQr_v5mR_',title:'Arriving to Paradise',meta:'mixed media on archival Hahnem\u00fchle paper \u00b7 40 \u00d7 60 cm',sold:false},
+  {id:'1ezrHj_0ILAo29pcYYyZE2Kfvx91gWozx',title:'In Paradise the Sea Has Pink Tiles',meta:'mixed media on archival Hahnem\u00fchle paper \u00b7 40 \u00d7 60 cm',sold:false},
+  {id:'1sXH7Z8DkVup_8iXd0AyLgmIWpDTkj7tB',title:'View from Home',meta:'acrylic on canvas \u00b7 15 \u00d7 15 cm',sold:false},
+  {id:'1l6FhRVsQQrPpyoFG1zaNvEqoUmTFI1EN',title:'Holiday View',meta:'mixed media on archival Hahnem\u00fchle paper \u00b7 30 \u00d7 30 cm',sold:false},
+  {id:'161iFXrAOhcL6gtR92gU9vtNmntlOS685',title:'Finestra Veneziana',meta:'acrylic on paper \u00b7 30 \u00d7 65 cm',sold:true},
+  {id:'1uArPzfuENPdHACqmISRu_EkkPirhoMJz',title:'Orange Chill',meta:'mixed media on archival Hahnem\u00fchle paper \u00b7 40 \u00d7 60 cm',sold:false},
+  {id:'1uiOxDo2PAFloVSj9xpI2swpV-ULXGVKn',title:'Nap Overlap',meta:'acrylic on wood panel \u00b7 21 \u00d7 30 cm',sold:true},
+  {id:'11qh4tFmr_JrcKOKvM537TozTdk7CysUv',title:'Tasting the Sea',meta:'mixed media on archival Hahnem\u00fchle paper \u00b7 30 \u00d7 40 cm',sold:false},
+  {id:'1Nfmnr-dBJs1O5tXL-cLvgpwjaCSPplpo',title:'Under the Shade',meta:'mixed media on archival Hahnem\u00fchle paper \u00b7 30 \u00d7 40 cm',sold:false},
+];
+
+const T={
+  en:{'nav-work':'Work','nav-about':'About','nav-contact':'Contact','tagline':'In-between painting and architecture, what is still to be made.','view-work':'View Work','contact-intro':'For inquiries about original works, commissions or exhibitions.','lbl-email':'Email','about-lead':'Isabel Carneiro (Porto, 1998) lives and works in Barcelona. She brings an architect\'s eye to painting, not as subject matter, but as a way of seeing.','cap1':'Live painting at Fet al Born, Barcelona','cap2':'Palo Market Fest, Barcelona','cap3':'Exhibition at Anje, Oporto','prints-note':'Prints of selected works are available on request, subject to stock.','cv1':'<strong>Art markets</strong>: Palo Market Fest, Port Vell Market and La Pala Brava Market, Barcelona and Costa Brava, Spain','cv2':'<strong>Work available at</strong> Paam Project and Ona Nova Concept Store, Barcelona, Spain','cv3':'<strong>Exhibition at Anje Restaurant</strong>, Oporto, Portugal','cvy4':'2021 &ndash; present','cv4':'<strong>Practising architect</strong>, Barcelona, Spain','cv5':'<strong>Master Degree in Architecture</strong>, FAUP, Faculdade de Arquitetura da Universidade do Porto','cv6':'<strong>Oil painting classes</strong>, Portugal','about-html':'<p>Her work explores interiors, light, landscapes and the emotional charge of everyday spaces. Rooms, balconies, surfaces caught in afternoon light. Places that feel inhabited even when empty.</p><p>Her paintings create environments that feel both familiar and imagined. Through subtle shifts in colour, atmosphere and composition, ordinary scenes are transformed into places that invite the viewer to step in and stay; spaces one might wish to inhabit, return to, or simply spend time in.</p><p>Through painting, she explores how space shapes experience and how the places we inhabit quietly influence the ways we perceive, remember and move through everyday life. Architecture is not the subject. It is the way she sees.</p>'},
+  es:{'nav-work':'Obra','nav-about':'Sobre mí','nav-contact':'Contacto','tagline':'Entre la pintura y la arquitectura, lo que aún está por hacer.','view-work':'Ver obra','contact-intro':'Para consultas sobre obras originales, encargos o exposiciones.','lbl-email':'Correo','about-lead':'Isabel Carneiro (Oporto, 1998) vive y trabaja en Barcelona. Aporta la mirada de arquitecta a la pintura, no como tema, sino como forma de ver.','cap1':'Live painting en Fet al Born, Barcelona','cap2':'Palo Market Fest, Barcelona','cap3':'Exposici\u00f3n en Anje, Oporto','prints-note':'Hay prints de obras seleccionadas disponibles bajo pedido, seg\u00fan stock.','cv1':'<strong>Mercados de arte</strong>: Palo Market Fest, Port Vell Market y La Pala Brava Market, Barcelona y Costa Brava, Espa\u00f1a','cv2':'<strong>Obra disponible en</strong> Paam Project y Ona Nova Concept Store, Barcelona, Espa\u00f1a','cv3':'<strong>Exposici\u00f3n en Anje Restaurant</strong>, Oporto, Portugal','cvy4':'2021 &ndash; presente','cv4':'<strong>Arquitecta en ejercicio</strong>, Barcelona, Espa\u00f1a','cv5':'<strong>M\u00e1ster en Arquitectura</strong>, FAUP, Facultad de Arquitectura de la Universidad de Oporto','cv6':'<strong>Clases de pintura al \u00f3leo</strong>, Portugal','about-html':'<p>Su obra explora interiores, luz, paisajes y la carga emocional de los espacios cotidianos. Habitaciones, balcones, superficies atrapadas en la luz de la tarde. Lugares que parecen habitados incluso cuando están vacíos.</p><p>Sus pinturas crean entornos que se sienten a la vez familiares e imaginados. A través de sutiles cambios de color, atmósfera y composición, las escenas ordinarias se transforman en lugares que invitan al espectador a entrar y quedarse.</p><p>A través de la pintura, explora cómo el espacio da forma a la experiencia y cómo los lugares que habitamos influyen silenciosamente en las formas en que percibimos, recordamos y transitamos la vida cotidiana. La arquitectura no es el tema. Es la forma de mirar.</p>'}
+};
+let lang='en';
+
+const techES={
+  'oil on canvas':'\u00f3leo sobre lienzo',
+  'oil and acrylic on wood panel':'\u00f3leo y acr\u00edlico sobre panel de madera',
+  'acrylic on wood panel':'acr\u00edlico sobre panel de madera',
+  'mixed media on archival Hahnem\u00fchle paper':'t\u00e9cnica mixta sobre papel de archivo Hahnem\u00fchle',
+  'mixed media on cotton rag paper':'t\u00e9cnica mixta sobre papel de algod\u00f3n',
+  'acrylic on canvas':'acr\u00edlico sobre lienzo',
+  'acrylic on paper':'acr\u00edlico sobre papel',
+  ', pair':', pareja'
+};
+function metaFor(w){
+  if(lang!=='es')return w.meta;
+  let m=w.meta;
+  for(const[en,es]of Object.entries(techES))m=m.replace(en,es);
+  return m;
+}
+function workHTML(w,i,cls){
+  return `<div class="${cls}${w.blend?' wm':''}${w.border?' wb':''}" onclick="openLb(${i})">
+      <img src="${D(w.id,cls==='work-full'?1600:1000)}" alt="${w.title}" loading="lazy">
+      <div class="work-info">
+        <div class="work-title">${w.title}</div>
+        <div class="work-meta">${metaFor(w)}</div>
+        ${w.sold?`<div class="work-sold">${lang==='es'?'Vendido':'Sold'}</div>`:''}
+      </div>
+    </div>`;
+}
+function renderWorks(){
+  let html='',buf=[];
+  works.forEach((w,i)=>{
+    if(w.wide){
+      if(buf.length){html+=`<div class="works-masonry">${buf.join('')}</div>`;buf=[]}
+      html+=workHTML(w,i,'work-full');
+    }else{
+      buf.push(workHTML(w,i,'work-item'));
+    }
+  });
+  if(buf.length)html+=`<div class="works-masonry">${buf.join('')}</div>`;
+  document.getElementById('works-grid').innerHTML=html;
+}
+
+function setLang(l){
+  lang=l;const t=T[l];
+  document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.dataset.i18n;if(t[k])el.innerHTML=t[k]});
+  document.getElementById('about-bio').innerHTML=t['about-html'];
+  document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active',b.dataset.lang===l));
+  renderWorks();
+}
+document.querySelectorAll('.lang-btn').forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.lang)));
+
+/* ═══ PÁGINAS ═══ */
+function goTo(page){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+page).classList.add('active');
+  document.querySelectorAll('.nav-center a').forEach(a=>a.classList.toggle('current',a.dataset.page===page));
+  document.getElementById('mobile-menu').classList.remove('open');
+  window.scrollTo({top:0,behavior:'instant'});
+  try{history.replaceState(null,'','#'+page)}catch(e){}
+  updateNav();
+}
+window.addEventListener('load',()=>{
+  const h=location.hash.replace('#','');
+  if(['work','about','contact'].includes(h))goTo(h);
+});
+
+/* ═══ Scroll: logo do hero dissolve, nav aparece ═══ */
+const nav=document.getElementById('nav');
+function updateNav(){nav.classList.remove('over-hero');}
+updateNav();
+
+/* Mobile */
+document.getElementById('hamburger').addEventListener('click',()=>document.getElementById('mobile-menu').classList.add('open'));
+document.getElementById('mobile-close').addEventListener('click',()=>document.getElementById('mobile-menu').classList.remove('open'));
+
+/* Lightbox */
+let ci=0;
+const lb=document.getElementById('lightbox'),lbImg=document.getElementById('lb-img'),lbTitle=document.getElementById('lb-title'),lbMeta=document.getElementById('lb-meta'),lbSold=document.getElementById('lb-sold'),lbEnq=document.getElementById('lb-enquire');
+function openLb(i){ci=i;const w=works[i];lbImg.classList.remove('zoomed');lbImg.src=D(w.id,1600);lbImg.alt=w.title;lbTitle.textContent=w.title;lbMeta.textContent=metaFor(w);lbSold.textContent=w.sold?(lang==='es'?'Vendido':'Sold'):'';
+if(!w.sold){lbEnq.style.display='inline-block';lbEnq.textContent=(lang==='es'?'Consultar esta obra':'Enquire about this work');lbEnq.href='mailto:isarizado.art@gmail.com?subject='+encodeURIComponent((lang==='es'?'Consulta: ':'Enquiry: ')+w.title);}else{lbEnq.style.display='none';}
+lb.classList.add('open');document.body.style.overflow='hidden'}
+function closeLb(){lb.classList.remove('open');document.body.style.overflow=''}
+if(window.matchMedia('(hover:hover) and (min-width:769px)').matches){
+  lbImg.classList.add('zoomable');
+  lbImg.addEventListener('click',e=>{e.stopPropagation();lbImg.classList.toggle('zoomed');});
+}
+document.getElementById('lb-close').addEventListener('click',closeLb);
+document.getElementById('lb-prev').addEventListener('click',()=>openLb((ci-1+works.length)%works.length));
+document.getElementById('lb-next').addEventListener('click',()=>openLb((ci+1)%works.length));
+lb.addEventListener('click',e=>{if(e.target===lb)closeLb()});
+document.addEventListener('keydown',e=>{if(!lb.classList.contains('open'))return;if(e.key==='Escape')closeLb();if(e.key==='ArrowLeft')openLb((ci-1+works.length)%works.length);if(e.key==='ArrowRight')openLb((ci+1)%works.length)});
+
+function alignStrip(){
+  const strip=document.querySelector('.about-strip');
+  if(!strip)return;
+  const imgs=[...strip.querySelectorAll('img')];
+  if(imgs.some(im=>!im.naturalWidth))return;
+  const gap=20,W=strip.clientWidth-gap*(imgs.length-1);
+  const sum=imgs.reduce((s,im)=>s+im.naturalWidth/im.naturalHeight,0);
+  const H=W/sum;
+  imgs.forEach(im=>{im.style.height=H+'px'});
+}
+window.addEventListener('resize',alignStrip);
+document.querySelectorAll('.about-strip img').forEach(im=>im.addEventListener('load',alignStrip));
+setInterval(alignStrip,800);
+
+renderWorks();
+setLang('en');
+
+/* ═══ INTRO ═══ */
+let introTimer=null;
+function endIntro(){
+  const intro=document.getElementById('intro');
+  if(!intro||intro.classList.contains('done'))return;
+  intro.classList.add('done');
+  try{sessionStorage.setItem('introSeen','1')}catch(e){}
+  setTimeout(()=>{intro.style.display='none'},800);
+}
+(function(){
+  const intro=document.getElementById('intro');
+  if(!intro)return;
+  intro.addEventListener('click',endIntro);
+  const h=location.hash.replace('#','');
+  let seen=false;
+  try{seen=!!sessionStorage.getItem('introSeen')}catch(e){}
+  if(seen||h==='about'||h==='contact'){intro.classList.add('done');intro.style.display='none';return;}
+  const bg=intro.querySelector(window.matchMedia('(max-width:768px)').matches?'.intro-bg.m':'.intro-bg.d');
+  let armed=false;
+  const once=()=>{if(armed)return;armed=true;intro.classList.add('ready');introTimer=setTimeout(endIntro,4000);};
+  if(bg&&bg.decode){bg.decode().then(once).catch(once);setTimeout(once,1200);}
+  else once();
+})();
+</script>
+</body>
+</html>
