@@ -232,6 +232,8 @@ nav.over-hero .hamburger span{background:rgba(255,255,255,0.95);box-shadow:0 1px
 .mobile-menu a{font-family:'Playfair Display',serif;font-size:30px;color:var(--tinto);text-decoration:none;cursor:pointer}
 .mobile-menu-lang{display:flex;gap:16px;margin-top:12px}
 .mobile-menu-close{position:absolute;top:22px;right:26px;background:none;border:none;font-size:26px;color:var(--tinto-lt);cursor:pointer;font-weight:300}
+.menu-varandas{position:absolute;bottom:24px;right:18px;height:120px;width:auto;pointer-events:none;animation:drift2 9s ease-in-out infinite}
+@media(max-height:560px){.menu-varandas{display:none}}
 
 @media(max-width:900px){
   .contact-grid{display:flex;flex-direction:column;height:auto;min-height:unset;padding-top:var(--nav-h)}
@@ -313,6 +315,7 @@ nav.over-hero .hamburger span{background:rgba(255,255,255,0.95);box-shadow:0 1px
     <button class="lang-btn active" data-lang="en">EN</button>
     <button class="lang-btn" data-lang="es">ES</button>
   </div>
+  <img class="menu-varandas" src="images/cut-varandas.png" alt="" onerror="this.remove()">
 </div>
 
 <!-- ═══ HOME ═══ -->
