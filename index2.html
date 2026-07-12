@@ -291,26 +291,95 @@ nav.over-hero .hamburger span{background:rgba(255,255,255,0.95);box-shadow:0 1px
 .intro.ready .intro-bg{opacity:1}
 .intro-bg.m{display:none}
 .intro-logo{position:relative;z-index:2;width:clamp(280px,46vw,640px)}
-.intro-logo svg{width:100%;height:auto;display:block;filter:brightness(0) invert(1) drop-shadow(0 2px 14px rgba(40,20,10,0.35))}
-.intro-logo svg.il-stack{display:none}
-.paint-path{fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1}
-.intro.ready .paint-path{animation-name:paintStroke;animation-timing-function:ease-in-out;animation-fill-mode:forwards}
-@keyframes paintStroke{to{stroke-dashoffset:0}}
+.intro-logo img{width:100%;height:auto;display:block;filter:brightness(0) invert(1) drop-shadow(0 2px 14px rgba(40,20,10,0.35))}
+.intro-logo .il-line{clip-path:inset(0 100% 0 0)}
+.intro.ready .il-line{animation:writeLine 2.7s linear 0.5s forwards}
+.intro-logo .il-stack{display:none;position:relative}
+.il-top{clip-path:inset(0 100% 50% 0)}
+.il-bot{position:absolute;inset:0;clip-path:inset(50% 100% 0 0)}
+.intro.ready .il-top{animation:writeTop 0.97s linear 0.45s forwards}
+.intro.ready .il-bot{animation:writeBot 1.65s linear 1.77s forwards}
+@keyframes writeLine{
+0.0%{clip-path:inset(0 98.9% 0 0)}
+0.01%{clip-path:inset(0 98.9% 0 0)}
+4.62%{clip-path:inset(0 91.09% 0 0)}
+8.41%{clip-path:inset(0 88.05% 0 0)}
+10.63%{clip-path:inset(0 88.05% 0 0)}
+12.31%{clip-path:inset(0 85.21% 0 0)}
+13.69%{clip-path:inset(0 84.1% 0 0)}
+15.91%{clip-path:inset(0 84.1% 0 0)}
+20.58%{clip-path:inset(0 76.22% 0 0)}
+24.4%{clip-path:inset(0 73.15% 0 0)}
+38.47%{clip-path:inset(0 65.4% 0 0)}
+43.61%{clip-path:inset(0 56.72% 0 0)}
+47.81%{clip-path:inset(0 53.35% 0 0)}
+50.04%{clip-path:inset(0 53.35% 0 0)}
+52.02%{clip-path:inset(0 50.0% 0 0)}
+53.64%{clip-path:inset(0 48.7% 0 0)}
+55.86%{clip-path:inset(0 48.7% 0 0)}
+60.1%{clip-path:inset(0 41.54% 0 0)}
+63.57%{clip-path:inset(0 38.75% 0 0)}
+65.8%{clip-path:inset(0 38.75% 0 0)}
+71.53%{clip-path:inset(0 29.07% 0 0)}
+76.22%{clip-path:inset(0 25.3% 0 0)}
+78.44%{clip-path:inset(0 25.3% 0 0)}
+83.36%{clip-path:inset(0 16.98% 0 0)}
+87.39%{clip-path:inset(0 13.75% 0 0)}
+89.61%{clip-path:inset(0 13.75% 0 0)}
+95.33%{clip-path:inset(0 4.1% 0 0)}
+100.0%{clip-path:inset(0 0.35% 0 0)}
+100.01%{clip-path:inset(0 0.0% 0 0)}
+}
+@keyframes writeTop{
+0.0%{clip-path:inset(0 69.2% 50% 0)}
+0.01%{clip-path:inset(0 69.2% 50% 0)}
+20.21%{clip-path:inset(0 57.61% 50% 0)}
+36.74%{clip-path:inset(0 53.1% 50% 0)}
+42.93%{clip-path:inset(0 53.1% 50% 0)}
+50.46%{clip-path:inset(0 48.78% 50% 0)}
+56.62%{clip-path:inset(0 47.1% 50% 0)}
+62.8%{clip-path:inset(0 47.1% 50% 0)}
+83.26%{clip-path:inset(0 35.36% 50% 0)}
+100.0%{clip-path:inset(0 30.8% 50% 0)}
+100.01%{clip-path:inset(0 0.0% 50% 0)}
+}
+@keyframes writeBot{
+0.0%{clip-path:inset(50% 98.5% 0 0)}
+0.01%{clip-path:inset(50% 98.5% 0 0)}
+8.27%{clip-path:inset(50% 85.68% 0 0)}
+15.03%{clip-path:inset(50% 80.7% 0 0)}
+18.67%{clip-path:inset(50% 80.7% 0 0)}
+21.92%{clip-path:inset(50% 75.66% 0 0)}
+24.58%{clip-path:inset(50% 73.7% 0 0)}
+28.21%{clip-path:inset(50% 73.7% 0 0)}
+35.18%{clip-path:inset(50% 62.9% 0 0)}
+40.88%{clip-path:inset(50% 58.7% 0 0)}
+44.51%{clip-path:inset(50% 58.7% 0 0)}
+53.71%{clip-path:inset(50% 44.44% 0 0)}
+61.23%{clip-path:inset(50% 38.9% 0 0)}
+64.87%{clip-path:inset(50% 38.9% 0 0)}
+72.95%{clip-path:inset(50% 26.37% 0 0)}
+79.56%{clip-path:inset(50% 21.5% 0 0)}
+83.2%{clip-path:inset(50% 21.5% 0 0)}
+92.44%{clip-path:inset(50% 7.17% 0 0)}
+100.0%{clip-path:inset(50% 1.6% 0 0)}
+100.01%{clip-path:inset(50% 0.0% 0 0)}
+}
 .work-tagline{font-family:'Playfair Display',serif;font-size:clamp(13.5px,1.55vw,19px);color:var(--tinto);line-height:1.6;white-space:nowrap;margin:-18px 0 60px;font-weight:400}
-.cut-amarelos-2{position:relative;z-index:2;display:block;width:min(740px,60vw);height:auto;margin:130px 0 -72px calc(50% - 50vw - 3vw);filter:brightness(0.9) saturate(1.05);pointer-events:none}
+.cut-amarelos-2{position:relative;z-index:2;display:block;width:114%;height:auto;margin:-260px 0 -70px -7%;pointer-events:none}
 @media(max-width:768px){
   .intro-bg.d{display:none}
   .intro-bg.m{display:block}
   .intro-logo{width:min(74vw,360px)}
-  .intro-logo svg.il-line{display:none}
-  .intro-logo svg.il-stack{display:block}
+  .intro-logo .il-line{display:none}
+  .intro-logo .il-stack{display:block}
   .work-tagline{white-space:normal;max-width:100%;margin:-8px 0 44px}
-  .cut-amarelos-2{width:104vw;margin:80px 0 -34px calc(50% - 54vw)}
+  .cut-amarelos-2{width:132%;margin:36px 0 -26px -16%}
 }
 @media(prefers-reduced-motion:reduce){
   .hero-logo-img{transition:none}
   .intro-bg{opacity:1}
-  .paint-path{animation:none!important;stroke-dashoffset:0!important}
+  .il-line,.il-top,.il-bot{animation:none!important;clip-path:none!important}
 }
 </style>
 </head>
@@ -320,8 +389,11 @@ nav.over-hero .hamburger span{background:rgba(255,255,255,0.95);box-shadow:0 1px
   <img class="intro-bg d" src="images/intro-d.jpg" alt="">
   <img class="intro-bg m" src="images/intro-m.jpg" alt="">
   <div class="intro-logo">
-    <svg class="il-line" viewBox="0 0 2000 336" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" role="img" aria-label="Isa Rizado"><defs><mask id="mLine" maskUnits="userSpaceOnUse"><path class="paint-path" d="M99 54 L41 284 L159 54 L162 284" stroke-width="160" pathLength="1" style="animation-duration:0.21s;animation-delay:0.50s"/><path class="paint-path" d="M307 54 L250 284" stroke-width="160" pathLength="1" style="animation-duration:0.13s;animation-delay:0.75s"/><path class="paint-path" d="M395 54 L337 284 L456 54 L460 284" stroke-width="160" pathLength="1" style="animation-duration:0.21s;animation-delay:0.92s"/><path class="paint-path" d="M765 50 L710 269 L840 50 L860 269" stroke-width="152" pathLength="1" style="animation-duration:0.21s;animation-delay:1.47s"/><path class="paint-path" d="M1007 50 L952 269" stroke-width="152" pathLength="1" style="animation-duration:0.13s;animation-delay:1.72s"/><path class="paint-path" d="M1099 50 L1044 269 L1153 50 L1152 269" stroke-width="152" pathLength="1" style="animation-duration:0.21s;animation-delay:1.89s"/><path class="paint-path" d="M1298 50 L1243 269 L1357 50 L1362 269 L1476 50" stroke-width="152" pathLength="1" style="animation-duration:0.25s;animation-delay:2.14s"/><path class="paint-path" d="M1567 50 L1512 269 L1637 50 L1652 269" stroke-width="152" pathLength="1" style="animation-duration:0.21s;animation-delay:2.43s"/><path class="paint-path" d="M1798 50 L1743 269 L1857 50 L1861 269 L1975 50" stroke-width="152" pathLength="1" style="animation-duration:0.25s;animation-delay:2.68s"/></mask></defs><image href="images/logo.png" xlink:href="images/logo.png" width="2000" height="336" mask="url(#mLine)"/></svg>
-    <svg class="il-stack" viewBox="0 0 1000 530" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" role="img" aria-label="Isa Rizado"><defs><mask id="mStack" maskUnits="userSpaceOnUse"><path class="paint-path" d="M365 40 L322 211 L410 40 L412 211" stroke-width="118" pathLength="1" style="animation-duration:0.22s;animation-delay:0.45s"/><path class="paint-path" d="M520 40 L478 211" stroke-width="118" pathLength="1" style="animation-duration:0.14s;animation-delay:0.71s"/><path class="paint-path" d="M586 40 L543 211 L632 40 L635 211" stroke-width="118" pathLength="1" style="animation-duration:0.22s;animation-delay:0.89s"/><path class="paint-path" d="M69 318 L28 480 L124 318 L139 480" stroke-width="112" pathLength="1" style="animation-duration:0.22s;animation-delay:1.55s"/><path class="paint-path" d="M248 318 L208 480" stroke-width="112" pathLength="1" style="animation-duration:0.14s;animation-delay:1.82s"/><path class="paint-path" d="M317 318 L276 480 L358 318 L359 480" stroke-width="112" pathLength="1" style="animation-duration:0.22s;animation-delay:1.99s"/><path class="paint-path" d="M467 318 L426 480 L510 318 L514 480 L598 318" stroke-width="112" pathLength="1" style="animation-duration:0.26s;animation-delay:2.26s"/><path class="paint-path" d="M665 318 L624 480 L718 318 L731 480" stroke-width="112" pathLength="1" style="animation-duration:0.22s;animation-delay:2.56s"/><path class="paint-path" d="M839 318 L798 480 L883 318 L886 480 L970 318" stroke-width="112" pathLength="1" style="animation-duration:0.26s;animation-delay:2.82s"/></mask></defs><image href="images/logo-stacked.png" xlink:href="images/logo-stacked.png" width="1000" height="530" mask="url(#mStack)"/></svg>
+    <img class="il-line" src="images/logo.png" alt="Isa Rizado">
+    <div class="il-stack">
+      <img class="il-top" src="images/logo-stacked.png" alt="Isa Rizado">
+      <img class="il-bot" src="images/logo-stacked.png" alt="">
+    </div>
   </div>
 </div>
 
