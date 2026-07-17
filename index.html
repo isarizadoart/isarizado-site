@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Isa Rizado</title>
 <link rel="icon" type="image/png" href="images/favicon.png">
+<link rel="preload" as="image" href="images/intro-d.jpg" media="(min-width:769px)">
+<link rel="preload" as="image" href="images/intro-m.jpg" media="(max-width:768px)">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500&display=swap" rel="stylesheet">
@@ -214,6 +216,7 @@ footer{padding:20px 40px;border-top:0.5px solid var(--border);display:flex;align
 }
 .lightbox-info{min-width:160px;max-width:200px}
 .lb-title{font-family:'Playfair Display',serif;font-size:19px;color:rgba(240,235,227,0.95);font-weight:400;line-height:1.3;margin-bottom:10px}
+.nbr{white-space:nowrap}
 .lb-meta{font-size:11px;color:rgba(176,112,96,0.8);line-height:1.8;letter-spacing:0.05em}
 .lb-enquire{display:inline-block;margin-top:16px;font-size:9.5px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(240,235,227,0.85);text-decoration:none;border-bottom:1px solid rgba(240,235,227,0.35);padding-bottom:3px;transition:color 0.3s,border-color 0.3s}
 .lb-enquire:hover{color:#fff;border-color:#fff}
@@ -227,12 +230,12 @@ footer{padding:20px 40px;border-top:0.5px solid var(--border);display:flex;align
 .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
 .hamburger span{display:block;width:22px;height:1px;background:var(--tinto);transition:background 0.4s}
 nav.over-hero .hamburger span{background:rgba(255,255,255,0.95);box-shadow:0 1px 4px rgba(30,15,8,0.5)}
-.mobile-menu{display:none;position:fixed;inset:0;z-index:150;background:var(--bg);flex-direction:column;align-items:center;justify-content:center;gap:36px}
+.mobile-menu{display:none;position:fixed;inset:0;z-index:150;background:var(--bg);flex-direction:column;align-items:flex-start;justify-content:center;gap:36px;padding-left:38px}
 .mobile-menu.open{display:flex}
 .mobile-menu a{font-family:'Playfair Display',serif;font-size:30px;color:var(--tinto);text-decoration:none;cursor:pointer}
-.mobile-menu-lang{display:flex;gap:16px;margin-top:12px}
+.mobile-menu-lang{display:flex;gap:16px;margin-top:12px;align-self:flex-start}
 .mobile-menu-close{position:absolute;top:22px;right:26px;background:none;border:none;font-size:26px;color:var(--tinto-lt);cursor:pointer;font-weight:300}
-.menu-varandas{position:absolute;bottom:24px;right:18px;height:120px;width:auto;pointer-events:none;animation:drift2 9s ease-in-out infinite}
+.menu-varandas{position:absolute;top:calc(50% - 78px);right:16px;height:156px;width:auto;pointer-events:none;animation:drift2 9s ease-in-out infinite}
 @media(max-height:560px){.menu-varandas{display:none}}
 
 @media(max-width:900px){
@@ -275,26 +278,65 @@ nav.over-hero .hamburger span{background:rgba(255,255,255,0.95);box-shadow:0 1px
   .cv-row{grid-template-columns:80px 1fr;gap:16px}
   footer{padding:18px 20px;flex-direction:column;gap:8px;text-align:center}
   .lightbox-inner{flex-direction:column;max-width:95vw;gap:16px}
-  .lb-nav{position:fixed;top:50%;transform:translateY(-50%);z-index:220;font-size:36px;color:rgba(255,255,255,0.7);padding:10px;background:none}
+  .lb-nav{position:fixed;top:auto;bottom:26px;transform:none;z-index:220;font-size:30px;color:rgba(255,255,255,0.92);width:56px;height:56px;display:flex;align-items:center;justify-content:center;background:rgba(40,20,10,0.55);border-radius:50%}
+  #lb-prev{left:16px}
+  #lb-next{right:16px}
   #lb-prev{left:2px}
   #lb-next{right:2px}
   .lightbox-img{max-width:92vw;max-height:58vh}
   .lightbox-info{min-width:unset;text-align:center}
   .lb-close{top:-30px}
 }
-@media(prefers-reduced-motion:reduce){.hero-logo-img{transition:none}}
+/* ═══ INTRO ═══ */
+.intro{position:fixed;inset:0;z-index:500;overflow:hidden;background:#C4B09A;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:opacity 0.7s ease}
+.intro.done{opacity:0;pointer-events:none}
+.intro-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 0.5s ease}
+.intro.ready .intro-bg{opacity:1}
+.intro-bg.m{display:none}
+.intro-logo{position:relative;z-index:2;width:clamp(280px,46vw,640px)}
+.intro-logo svg{width:100%;height:auto;display:block;filter:brightness(0) invert(1) drop-shadow(0 2px 14px rgba(40,20,10,0.3))}
+.intro-logo .il-stack{display:none}
+.paint-path{fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1}
+.intro.ready .paint-path{animation-name:paintStroke;animation-timing-function:cubic-bezier(0.35,0.6,0.35,1);animation-fill-mode:forwards}
+@keyframes paintStroke{to{stroke-dashoffset:0}}
+.work-tagline{font-family:'Playfair Display',serif;font-size:clamp(13.5px,1.55vw,19px);color:var(--tinto);line-height:1.6;white-space:nowrap;margin:-18px 0 60px;font-weight:400}
+.cut-amarelos-2{position:relative;z-index:2;display:block;width:114%;height:auto;margin:-260px 0 -70px -7%;pointer-events:none}
+@media(max-width:768px){
+  .intro-bg.d{display:none}
+  .intro-bg.m{display:block}
+  .intro-logo{width:min(74vw,360px)}
+  .intro-logo .il-line{display:none}
+  .intro-logo .il-stack{display:block}
+  .intro-logo svg{filter:brightness(0) invert(1) drop-shadow(0 1px 6px rgba(40,20,10,0.24))}
+  .work-tagline{white-space:normal;max-width:100%;margin:-8px 0 44px;font-size:16.5px}
+  .cut-amarelos-2{width:152%;margin:36px 0 -26px -36%}
+}
+@media(prefers-reduced-motion:reduce){
+  .hero-logo-img{transition:none}
+  .intro-bg{opacity:1}
+  .paint-path{animation:none!important;stroke-dashoffset:0!important}
+}
 </style>
 </head>
 <body>
 
-<nav id="nav" class="over-hero">
-  <div class="nav-logo" onclick="goTo('home')">
+<div class="intro" id="intro">
+  <img class="intro-bg d" src="images/intro-d.jpg" alt="">
+  <img class="intro-bg m" src="images/intro-m.jpg" alt="">
+  <div class="intro-logo">
+    <svg class="il-line" viewBox="0 0 2000 336" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" role="img" aria-label="Isa Rizado"><defs><clipPath id="mac0"><rect x="22" y="1" width="217" height="336"/></clipPath><clipPath id="mac1"><rect x="239" y="1" width="79" height="336"/></clipPath><clipPath id="mac2"><rect x="318" y="1" width="219" height="336"/></clipPath><clipPath id="mac3"><rect x="692" y="-1" width="241" height="321"/></clipPath><clipPath id="mac4"><rect x="933" y="-1" width="93" height="321"/></clipPath><clipPath id="mac5"><rect x="1026" y="-1" width="199" height="321"/></clipPath><clipPath id="mac6"><rect x="1225" y="-1" width="269" height="321"/></clipPath><clipPath id="mac7"><rect x="1494" y="-1" width="231" height="321"/></clipPath><clipPath id="mac8"><rect x="1725" y="-1" width="268" height="321"/></clipPath><mask id="ma" maskUnits="userSpaceOnUse"><g clip-path="url(#mac0)"><path class="paint-path" d="M4 41 L-40 297 L79 41 L108 297 L227 41 L257 297" stroke-width="160" pathLength="1" style="animation-duration:0.18s;animation-delay:0.40s"/></g><g clip-path="url(#mac1)"><path class="paint-path" d="M221 41 L177 297 L301 41 L336 297" stroke-width="160" pathLength="1" style="animation-duration:0.13s;animation-delay:0.62s"/></g><g clip-path="url(#mac2)"><path class="paint-path" d="M300 41 L256 297 L375 41 L405 297 L525 41 L555 297" stroke-width="160" pathLength="1" style="animation-duration:0.18s;animation-delay:0.78s"/></g><g clip-path="url(#mac3)"><path class="paint-path" d="M675 38 L633 282 L755 38 L791 282 L913 38 L950 282" stroke-width="152" pathLength="1" style="animation-duration:0.18s;animation-delay:1.24s"/></g><g clip-path="url(#mac4)"><path class="paint-path" d="M916 38 L874 282 L973 38 L986 282 L1085 38" stroke-width="152" pathLength="1" style="animation-duration:0.15s;animation-delay:1.45s"/></g><g clip-path="url(#mac5)"><path class="paint-path" d="M1009 38 L967 282 L1078 38 L1104 282 L1216 38 L1242 282" stroke-width="152" pathLength="1" style="animation-duration:0.18s;animation-delay:1.64s"/></g><g clip-path="url(#mac6)"><path class="paint-path" d="M1208 38 L1166 282 L1277 38 L1304 282 L1415 38 L1442 282 L1553 38" stroke-width="152" pathLength="1" style="animation-duration:0.21s;animation-delay:1.86s"/></g><g clip-path="url(#mac7)"><path class="paint-path" d="M1477 38 L1435 282 L1554 38 L1588 282 L1708 38 L1742 282" stroke-width="152" pathLength="1" style="animation-duration:0.18s;animation-delay:2.10s"/></g><g clip-path="url(#mac8)"><path class="paint-path" d="M1708 38 L1666 282 L1777 38 L1803 282 L1915 38 L1941 282 L2052 38" stroke-width="152" pathLength="1" style="animation-duration:0.21s;animation-delay:2.32s"/></g></mask></defs><image href="images/logo.png" xlink:href="images/logo.png" width="2000" height="336" mask="url(#ma)"/></svg>
+    <svg class="il-stack" viewBox="0 0 1000 530" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" role="img" aria-label="Isa Rizado"><defs><clipPath id="mbc0"><rect x="308" y="-1" width="161" height="253"/></clipPath><clipPath id="mbc1"><rect x="469" y="-1" width="60" height="253"/></clipPath><clipPath id="mbc2"><rect x="529" y="-1" width="163" height="253"/></clipPath><clipPath id="mbc3"><rect x="15" y="278" width="178" height="241"/></clipPath><clipPath id="mbc4"><rect x="193" y="278" width="70" height="241"/></clipPath><clipPath id="mbc5"><rect x="263" y="278" width="150" height="241"/></clipPath><clipPath id="mbc6"><rect x="413" y="278" width="198" height="241"/></clipPath><clipPath id="mbc7"><rect x="611" y="278" width="174" height="241"/></clipPath><clipPath id="mbc8"><rect x="785" y="278" width="199" height="241"/></clipPath><mask id="mb" maskUnits="userSpaceOnUse"><g clip-path="url(#mbc0)"><path class="paint-path" d="M295 31 L262 220 L350 31 L372 220 L460 31 L482 220" stroke-width="118" pathLength="1" style="animation-duration:0.18s;animation-delay:0.36s"/></g><g clip-path="url(#mbc1)"><path class="paint-path" d="M456 31 L423 220 L516 31 L542 220" stroke-width="118" pathLength="1" style="animation-duration:0.13s;animation-delay:0.58s"/></g><g clip-path="url(#mbc2)"><path class="paint-path" d="M516 31 L483 220 L572 31 L594 220 L683 31 L705 220" stroke-width="118" pathLength="1" style="animation-duration:0.18s;animation-delay:0.75s"/></g><g clip-path="url(#mbc3)"><path class="paint-path" d="M3 308 L-29 488 L61 308 L88 488 L178 308 L205 488" stroke-width="112" pathLength="1" style="animation-duration:0.18s;animation-delay:1.27s"/></g><g clip-path="url(#mbc4)"><path class="paint-path" d="M181 308 L149 488 L223 308 L233 488 L307 308" stroke-width="112" pathLength="1" style="animation-duration:0.16s;animation-delay:1.49s"/></g><g clip-path="url(#mbc5)"><path class="paint-path" d="M251 308 L219 488 L302 308 L322 488 L405 308 L425 488" stroke-width="112" pathLength="1" style="animation-duration:0.18s;animation-delay:1.69s"/></g><g clip-path="url(#mbc6)"><path class="paint-path" d="M401 308 L369 488 L451 308 L471 488 L553 308 L573 488 L655 308" stroke-width="112" pathLength="1" style="animation-duration:0.21s;animation-delay:1.91s"/></g><g clip-path="url(#mbc7)"><path class="paint-path" d="M599 308 L567 488 L656 308 L682 488 L771 308 L797 488" stroke-width="112" pathLength="1" style="animation-duration:0.18s;animation-delay:2.16s"/></g><g clip-path="url(#mbc8)"><path class="paint-path" d="M773 308 L741 488 L824 308 L843 488 L926 308 L945 488 L1028 308" stroke-width="112" pathLength="1" style="animation-duration:0.21s;animation-delay:2.38s"/></g></mask></defs><image href="images/logo-stacked.png" xlink:href="images/logo-stacked.png" width="1000" height="530" mask="url(#mb)"/></svg>
+  </div>
+</div>
+
+<nav id="nav">
+  <div class="nav-logo" onclick="goTo('work')">
     <img src="images/logo.png" alt="Isa Rizado"
          onerror="this.style.display='none';this.parentElement.querySelector('.nav-logo-text').style.display='block'">
     <span class="nav-logo-text">Isa Rizado</span>
   </div>
   <div class="nav-center">
-    <a data-page="work" data-i18n="nav-work" onclick="goTo('work')">Work</a>
+    <a data-page="work" class="current" data-i18n="nav-work" onclick="goTo('work')">Work</a>
     <a data-page="about" data-i18n="nav-about" onclick="goTo('about')">About</a>
     <a data-page="contact" data-i18n="nav-contact" onclick="goTo('contact')">Contact</a>
   </div>
@@ -318,35 +360,13 @@ nav.over-hero .hamburger span{background:rgba(255,255,255,0.95);box-shadow:0 1px
   <img class="menu-varandas" src="images/cut-varandas.png" alt="" onerror="this.remove()">
 </div>
 
-<!-- ═══ HOME ═══ -->
-<div class="page active" id="page-home">
-  <section class="hero" id="hero">
-    <img class="hero-img-d" src="images/hero-golden-hour-cover.jpg" alt="Golden Hour">
-    <img class="hero-img-m" src="images/golden-hour.jpg" alt="Golden Hour">
-    <div class="hero-logo-overlay" id="hero-logo-overlay">
-      <img class="hero-logo-img" src="images/logo.png" alt="Isa Rizado"
-           onerror="this.outerHTML='<div class=&quot;hero-logo-fallback&quot;>Isa Rizado</div>'">
-    </div>
-    <div class="scroll-cue" id="scroll-cue"><svg width="32" height="76" viewBox="0 0 32 76" fill="none"><defs><linearGradient id="bcue" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset="0.4" stop-color="#fff" stop-opacity="0.7"/><stop offset="0.75" stop-color="#fff" stop-opacity="0.55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient><filter id="bcblur"><feGaussianBlur stdDeviation="0.5"/></filter></defs><path d="M16 3 C11 17, 21 31, 16 46 C12 57, 18 66, 15 73" stroke="url(#bcue)" stroke-width="5" stroke-linecap="round" filter="url(#bcblur)"/></svg></div>
-  </section>
-  <section class="below-hero">
-    <img class="cut-amarelos" src="images/cut-amarelos.png" alt="" onerror="this.remove()">
-    <div class="below-hero-left">
-      <p class="tagline-text" data-i18n="tagline">In-between painting and architecture, what is still to be made.</p>
-      <a class="cta-link" data-i18n="view-work" onclick="goTo('work')">View Work</a>
-    </div>
-    <div class="below-hero-right">
-      <img src="images/home-studio.jpg" alt="Isa Rizado"
-           onerror="this.parentElement.style.display='none'">
-    </div>
-  </section>
-</div>
-
 <!-- ═══ WORK ═══ -->
-<div class="page" id="page-work">
+<div class="page active" id="page-work">
   <div class="page-inner">
     <div class="section-label" data-i18n="nav-work">Work</div>
+    <p class="work-tagline" data-i18n="tagline">In-between painting and architecture, what is still to be made.</p>
     <div id="works-grid"></div>
+    <img class="cut-amarelos-2" src="images/cut-amarelos.png" alt="" onerror="this.remove()">
   </div>
 </div>
 
@@ -477,8 +497,8 @@ const works=[
 ];
 
 const T={
-  en:{'nav-work':'Work','nav-about':'About','nav-contact':'Contact','tagline':'In-between painting and architecture, what is still to be made.','view-work':'View Work','contact-intro':'For inquiries about original works, commissions or exhibitions.','lbl-email':'Email','about-lead':'Isabel Carneiro (Porto, 1998) lives and works in Barcelona. She brings an architect\'s eye to painting, not as subject matter, but as a way of seeing.','cap1':'Live painting at Fet al Born, Barcelona','cap2':'Palo Market Fest, Barcelona','cap3':'Exhibition at Anje, Oporto','prints-note':'Prints of selected works are available on request, subject to stock.','cv1':'<strong>Art markets</strong>: Palo Market Fest, Port Vell Market and La Pala Brava Market, Barcelona and Costa Brava, Spain','cv2':'<strong>Work available at</strong> Paam Project and Ona Nova Concept Store, Barcelona, Spain','cv3':'<strong>Exhibition at Anje Restaurant</strong>, Oporto, Portugal','cvy4':'2021 &ndash; present','cv4':'<strong>Practising architect</strong>, Barcelona, Spain','cv5':'<strong>Master Degree in Architecture</strong>, FAUP, Faculdade de Arquitetura da Universidade do Porto','cv6':'<strong>Oil painting classes</strong>, Portugal','about-html':'<p>Her work explores interiors, light, landscapes and the emotional charge of everyday spaces. Rooms, balconies, surfaces caught in afternoon light. Places that feel inhabited even when empty.</p><p>Her paintings create environments that feel both familiar and imagined. Through subtle shifts in colour, atmosphere and composition, ordinary scenes are transformed into places that invite the viewer to step in and stay; spaces one might wish to inhabit, return to, or simply spend time in.</p><p>Through painting, she explores how space shapes experience and how the places we inhabit quietly influence the ways we perceive, remember and move through everyday life. Architecture is not the subject. It is the way she sees.</p>'},
-  es:{'nav-work':'Obra','nav-about':'Sobre mí','nav-contact':'Contacto','tagline':'Entre la pintura y la arquitectura, lo que aún está por hacer.','view-work':'Ver obra','contact-intro':'Para consultas sobre obras originales, encargos o exposiciones.','lbl-email':'Correo','about-lead':'Isabel Carneiro (Oporto, 1998) vive y trabaja en Barcelona. Aporta la mirada de arquitecta a la pintura, no como tema, sino como forma de ver.','cap1':'Live painting en Fet al Born, Barcelona','cap2':'Palo Market Fest, Barcelona','cap3':'Exposici\u00f3n en Anje, Oporto','prints-note':'Hay prints de obras seleccionadas disponibles bajo pedido, seg\u00fan stock.','cv1':'<strong>Mercados de arte</strong>: Palo Market Fest, Port Vell Market y La Pala Brava Market, Barcelona y Costa Brava, Espa\u00f1a','cv2':'<strong>Obra disponible en</strong> Paam Project y Ona Nova Concept Store, Barcelona, Espa\u00f1a','cv3':'<strong>Exposici\u00f3n en Anje Restaurant</strong>, Oporto, Portugal','cvy4':'2021 &ndash; presente','cv4':'<strong>Arquitecta en ejercicio</strong>, Barcelona, Espa\u00f1a','cv5':'<strong>M\u00e1ster en Arquitectura</strong>, FAUP, Facultad de Arquitectura de la Universidad de Oporto','cv6':'<strong>Clases de pintura al \u00f3leo</strong>, Portugal','about-html':'<p>Su obra explora interiores, luz, paisajes y la carga emocional de los espacios cotidianos. Habitaciones, balcones, superficies atrapadas en la luz de la tarde. Lugares que parecen habitados incluso cuando están vacíos.</p><p>Sus pinturas crean entornos que se sienten a la vez familiares e imaginados. A través de sutiles cambios de color, atmósfera y composición, las escenas ordinarias se transforman en lugares que invitan al espectador a entrar y quedarse.</p><p>A través de la pintura, explora cómo el espacio da forma a la experiencia y cómo los lugares que habitamos influyen silenciosamente en las formas en que percibimos, recordamos y transitamos la vida cotidiana. La arquitectura no es el tema. Es la forma de mirar.</p>'}
+  en:{'nav-work':'Work','nav-about':'About','nav-contact':'Contact','tagline':'In-between painting and architecture, what is still <span class=\'nbr\'>to be made.</span>','view-work':'View Work','contact-intro':'For inquiries about original works, commissions or exhibitions.','lbl-email':'Email','about-lead':'Isabel Carneiro (Porto, 1998) lives and works in Barcelona. She brings an architect\'s eye to painting, not as subject matter, but as a way of seeing.','cap1':'Live painting at Fet al Born, Barcelona','cap2':'Palo Market Fest, Barcelona','cap3':'Exhibition at Anje, Oporto','prints-note':'Prints of selected works are available on request, subject to stock.','cv1':'<strong>Art markets</strong>: Palo Market Fest, Port Vell Market and La Pala Brava Market, Barcelona and Costa Brava, Spain','cv2':'<strong>Work available at</strong> Paam Project and Ona Nova Concept Store, Barcelona, Spain','cv3':'<strong>Exhibition at Anje Restaurant</strong>, Oporto, Portugal','cvy4':'2021 &ndash; present','cv4':'<strong>Practising architect</strong>, Barcelona, Spain','cv5':'<strong>Master Degree in Architecture</strong>, FAUP, Faculdade de Arquitetura da Universidade do Porto','cv6':'<strong>Oil painting classes</strong>, Portugal','about-html':'<p>Her work explores interiors, light, landscapes and the emotional charge of everyday spaces. Rooms, balconies, surfaces caught in afternoon light. Places that feel inhabited even when empty.</p><p>Her paintings create environments that feel both familiar and imagined. Through subtle shifts in colour, atmosphere and composition, ordinary scenes are transformed into places that invite the viewer to step in and stay; spaces one might wish to inhabit, return to, or simply spend time in.</p><p>Through painting, she explores how space shapes experience and how the places we inhabit quietly influence the ways we perceive, remember and move through everyday life. Architecture is not the subject. It is the way she sees.</p>'},
+  es:{'nav-work':'Obra','nav-about':'Sobre mí','nav-contact':'Contacto','tagline':'Entre la pintura y la arquitectura, lo que aún <span class=\'nbr\'>está por hacer.</span>','view-work':'Ver obra','contact-intro':'Para consultas sobre obras originales, encargos o exposiciones.','lbl-email':'Correo','about-lead':'Isabel Carneiro (Oporto, 1998) vive y trabaja en Barcelona. Aporta la mirada de arquitecta a la pintura, no como tema, sino como forma de ver.','cap1':'Live painting en Fet al Born, Barcelona','cap2':'Palo Market Fest, Barcelona','cap3':'Exposici\u00f3n en Anje, Oporto','prints-note':'Hay prints de obras seleccionadas disponibles bajo pedido, seg\u00fan stock.','cv1':'<strong>Mercados de arte</strong>: Palo Market Fest, Port Vell Market y La Pala Brava Market, Barcelona y Costa Brava, Espa\u00f1a','cv2':'<strong>Obra disponible en</strong> Paam Project y Ona Nova Concept Store, Barcelona, Espa\u00f1a','cv3':'<strong>Exposici\u00f3n en Anje Restaurant</strong>, Oporto, Portugal','cvy4':'2021 &ndash; presente','cv4':'<strong>Arquitecta en ejercicio</strong>, Barcelona, Espa\u00f1a','cv5':'<strong>M\u00e1ster en Arquitectura</strong>, FAUP, Facultad de Arquitectura de la Universidad de Oporto','cv6':'<strong>Clases de pintura al \u00f3leo</strong>, Portugal','about-html':'<p>Su obra explora interiores, luz, paisajes y la carga emocional de los espacios cotidianos. Habitaciones, balcones, superficies atrapadas en la luz de la tarde. Lugares que parecen habitados incluso cuando están vacíos.</p><p>Sus pinturas crean entornos que se sienten a la vez familiares e imaginados. A través de sutiles cambios de color, atmósfera y composición, las escenas ordinarias se transforman en lugares que invitan al espectador a entrar y quedarse.</p><p>A través de la pintura, explora cómo el espacio da forma a la experiencia y cómo los lugares que habitamos influyen silenciosamente en las formas en que percibimos, recordamos y transitamos la vida cotidiana. La arquitectura no es el tema. Es la forma de mirar.</p>'}
 };
 let lang='en';
 
@@ -492,6 +512,7 @@ const techES={
   'acrylic on paper':'acr\u00edlico sobre papel',
   ', pair':', pareja'
 };
+function metaHTML(w){const m=metaFor(w);const parts=m.split(' \u00b7 ');if(parts.length<2)return m;const dim=parts.pop();return parts.join(' \u00b7 ')+' \u00b7 <span class="nbr">'+dim+'</span>';}
 function metaFor(w){
   if(lang!=='es')return w.meta;
   let m=w.meta;
@@ -548,25 +569,7 @@ window.addEventListener('load',()=>{
 
 /* ═══ Scroll: logo do hero dissolve, nav aparece ═══ */
 const nav=document.getElementById('nav');
-const overlay=document.getElementById('hero-logo-overlay');
-const scrollCue=document.getElementById('scroll-cue');
-function updateNav(){
-  if(scrollCue)scrollCue.classList.toggle('hidden',window.scrollY>40);
-  const onHome=document.getElementById('page-home').classList.contains('active');
-  if(!onHome){nav.classList.remove('over-hero');return}
-  const heroB=document.getElementById('hero').getBoundingClientRect().bottom;
-  const past=heroB<=72;
-  nav.classList.toggle('over-hero',!past);
-  const heroH=document.getElementById('hero').offsetHeight;
-  const lmask=overlay?overlay.querySelector('.hero-logo-img'):null;
-  if(lmask){
-    const p=Math.min(1,Math.max(0,window.scrollY/(heroH*0.38)));
-    lmask.style.opacity=(0.96*(1-p)).toFixed(3);
-    lmask.style.transform='translateY('+(-34*p).toFixed(1)+'px)';
-  }
-}
-window.addEventListener('scroll',updateNav,{passive:true});
-document.querySelector('.hero > img').addEventListener('load',updateNav);
+function updateNav(){nav.classList.remove('over-hero');}
 updateNav();
 
 /* Mobile */
@@ -576,7 +579,7 @@ document.getElementById('mobile-close').addEventListener('click',()=>document.ge
 /* Lightbox */
 let ci=0;
 const lb=document.getElementById('lightbox'),lbImg=document.getElementById('lb-img'),lbTitle=document.getElementById('lb-title'),lbMeta=document.getElementById('lb-meta'),lbSold=document.getElementById('lb-sold'),lbEnq=document.getElementById('lb-enquire');
-function openLb(i){ci=i;const w=works[i];lbImg.classList.remove('zoomed');lbImg.src=D(w.id,1600);lbImg.alt=w.title;lbTitle.textContent=w.title;lbMeta.textContent=metaFor(w);lbSold.textContent=w.sold?(lang==='es'?'Vendido':'Sold'):'';
+function openLb(i){ci=i;const w=works[i];lbImg.classList.remove('zoomed');lbImg.src=D(w.id,1600);lbImg.alt=w.title;lbTitle.textContent=w.title;lbMeta.innerHTML=metaHTML(w);lbSold.textContent=w.sold?(lang==='es'?'Vendido':'Sold'):'';
 if(!w.sold){lbEnq.style.display='inline-block';lbEnq.textContent=(lang==='es'?'Consultar esta obra':'Enquire about this work');lbEnq.href='mailto:isarizado.art@gmail.com?subject='+encodeURIComponent((lang==='es'?'Consulta: ':'Enquiry: ')+w.title);}else{lbEnq.style.display='none';}
 lb.classList.add('open');document.body.style.overflow='hidden'}
 function closeLb(){lb.classList.remove('open');document.body.style.overflow=''}
@@ -606,6 +609,30 @@ setInterval(alignStrip,800);
 
 renderWorks();
 setLang('en');
+
+/* ═══ INTRO ═══ */
+let introTimer=null;
+function endIntro(){
+  const intro=document.getElementById('intro');
+  if(!intro||intro.classList.contains('done'))return;
+  intro.classList.add('done');
+  try{sessionStorage.setItem('introSeen','1')}catch(e){}
+  setTimeout(()=>{intro.style.display='none'},800);
+}
+(function(){
+  const intro=document.getElementById('intro');
+  if(!intro)return;
+  intro.addEventListener('click',endIntro);
+  const h=location.hash.replace('#','');
+  let seen=false;
+  try{seen=!!sessionStorage.getItem('introSeen')}catch(e){}
+  if(seen||h==='about'||h==='contact'){intro.classList.add('done');intro.style.display='none';return;}
+  const bg=intro.querySelector(window.matchMedia('(max-width:768px)').matches?'.intro-bg.m':'.intro-bg.d');
+  let armed=false;
+  const once=()=>{if(armed)return;armed=true;intro.classList.add('ready');introTimer=setTimeout(endIntro,4000);};
+  if(bg&&bg.decode){bg.decode().then(once).catch(once);setTimeout(once,1200);}
+  else once();
+})();
 </script>
 </body>
 </html>
